@@ -1,10 +1,42 @@
+import "react-native-gesture-handler";
 import { StyleSheet, Text, View } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import * as SplashScreen from "expo-splash-screen";
 import { useCallback, useEffect, useState } from "react";
 import * as Font from "expo-font";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
+import ChatListScreen from "./screens/ChatListScreen";
+import ChatSettingsScreen from "./screens/ChatSettingsScreen";
+import SettingsScreen from "./screens/SettingsScreen";
 
 SplashScreen.preventAutoHideAsync();
+
+const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
+
+const TabNavigator = () => {
+  return (
+    <Tab.Navigator screenOptions={{ headerTitle: " " }}>
+      <Tab.Screen
+        name="ChatList"
+        component={ChatListScreen}
+        options={{
+          tabBarLabel: "Chats",
+        }}
+      />
+      <Tab.Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={{
+          tabBarLabel: "Settings",
+        }}
+      />
+    </Tab.Navigator>
+  );
+};
 
 export default function App() {
   const [appIsLoaded, setAppIsLoaded] = useState(false);
@@ -44,9 +76,20 @@ export default function App() {
 
   return (
     <SafeAreaProvider style={styles.container} onLayout={onLayout}>
-      <SafeAreaView>
-        <Text style={styles.label}>Hi everyone!</Text>
-      </SafeAreaView>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Home"
+            component={TabNavigator}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="ChatSettings"
+            component={ChatSettingsScreen}
+            options={{ headerTitle: "Settings", headerBackTitle: "Back" }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
     </SafeAreaProvider>
   );
 }
@@ -55,8 +98,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
   },
   label: {
     color: "black",
