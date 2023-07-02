@@ -6,6 +6,7 @@ import { Feather } from "@expo/vector-icons";
 
 import PageContainer from "../components/PageContainer";
 import Input from "../components/Input";
+import SubmitButton from "../components/SubmitButton";
 
 const AuthScreen = (props) => {
   return (
@@ -15,6 +16,12 @@ const AuthScreen = (props) => {
         <Input label="Last name" icon="user-o" iconPack={FontAwesome} />
         <Input label="Email" icon="mail" iconPack={Feather} />
         <Input label="Password" icon="lock" iconPack={Feather} />
+
+        <SubmitButton
+          title="Sign up"
+          onPress={() => console.log("button pressed")}
+          style={{ marginTop: 20 }}
+        />
       </PageContainer>
     </SafeAreaView>
   );
