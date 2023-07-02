@@ -18,6 +18,11 @@ const Input = (props) => {
         )}
         <TextInput style={styles.input} />
       </View>
+      {props.errorText && (
+        <View style={styles.errorContainer}>
+          <Text style={styles.errorText}>{props.errorText}</Text>
+        </View>
+      )}
     </View>
   );
 };
@@ -51,6 +56,15 @@ const styles = StyleSheet.create({
     fontFamily: "regular",
     letterSpacing: 0.3,
     paddingTop: 0,
+  },
+  errorContainer: {
+    marginVertical: 5,
+  },
+  errorText: {
+    color: "red",
+    fontSize: 13,
+    fontFamily: "regular",
+    letterSpacing: 0.3,
   },
 });
 
