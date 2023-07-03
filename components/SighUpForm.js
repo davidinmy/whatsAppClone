@@ -1,24 +1,14 @@
 import React, { Fragment } from "react";
 import { FontAwesome } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
+import { validateInput } from "../utils/actions/formActions";
 
 import SubmitButton from "../components/SubmitButton";
 import Input from "../components/Input";
-import {
-  validateEmail,
-  validatePassword,
-  validateString,
-} from "../utils/validationConstrains";
 
 const SighUpForm = (props) => {
   const inputChangeHandler = (inputId, inputValue) => {
-    if (inputId === "firstName" || inputId === "lastName") {
-      console.log(validateString(inputId, inputValue));
-    } else if (inputId === "email") {
-      console.log(validateEmail(inputId, inputValue));
-    } else if (inputId === "password") {
-      console.log(validatePassword(inputId, inputValue));
-    }
+    console.log(validateInput(inputId, inputValue));
   };
 
   return (
@@ -27,6 +17,7 @@ const SighUpForm = (props) => {
         id="firstName"
         label="First name"
         icon="user-o"
+        autoCapitalize="none"
         iconPack={FontAwesome}
         onInputChanged={inputChangeHandler}
       />
@@ -34,6 +25,7 @@ const SighUpForm = (props) => {
         id="lastName"
         label="Last name"
         icon="user-o"
+        autoCapitalize="none"
         iconPack={FontAwesome}
         onInputChanged={inputChangeHandler}
       />
@@ -41,6 +33,8 @@ const SighUpForm = (props) => {
         id="email"
         label="Email"
         icon="mail"
+        autoCapitalize="none"
+        keyboardType="email-address"
         iconPack={Feather}
         onInputChanged={inputChangeHandler}
       />
@@ -48,6 +42,8 @@ const SighUpForm = (props) => {
         id="password"
         label="Password"
         icon="lock"
+        autoCapitalize="none"
+        secureTextEntry
         iconPack={Feather}
         onInputChanged={inputChangeHandler}
       />
