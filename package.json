@@ -9,6 +9,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo/vector-icons": "^13.0.0",
     "@expo/webpack-config": "^18.0.1",
     "@react-navigation/bottom-tabs": "^6.5.8",
     "@react-navigation/material-bottom-tabs": "^6.2.16",
@@ -26,7 +27,7 @@
     "react-native-screens": "~3.20.0",
     "react-native-vector-icons": "^9.2.0",
     "react-native-web": "~0.18.10",
-    "@expo/vector-icons": "^13.0.0"
+    "validate.js": "^0.13.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
