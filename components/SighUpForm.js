@@ -1,31 +1,23 @@
 import React, { Fragment } from "react";
 import { FontAwesome } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
-import { validate } from "validate.js";
 
 import SubmitButton from "../components/SubmitButton";
 import Input from "../components/Input";
+import {
+  validateEmail,
+  validatePassword,
+  validateString,
+} from "../utils/validationConstrains";
 
 const SighUpForm = (props) => {
   const inputChangeHandler = (inputId, inputValue) => {
     if (inputId === "firstName" || inputId === "lastName") {
-      const constraints = {
-        presence: { allowEmpty: false },
-      };
-
-      if (inputValue !== "") {
-        constraints.format = {
-          pattern: "[a-z]+",
-          flags: "i", // case sensitive
-          message: "can only contain letters",
-        };
-      }
-
-      console.log(
-        validate({ [inputId]: inputValue }, { [inputId]: constraints })
-      );
+      console.log(validateString(inputId, inputValue));
     } else if (inputId === "email") {
+      console.log(validateEmail(inputId, inputValue));
     } else if (inputId === "password") {
+      console.log(validatePassword(inputId, inputValue));
     }
   };
 
