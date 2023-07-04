@@ -8,6 +8,10 @@ import Input from "../components/Input";
 import { reducer } from "../utils/reducers/formReducer";
 
 const initialState = {
+  inputValues: {
+    email: "",
+    password: "",
+  },
   inputValidities: {
     email: false,
     password: false,
@@ -21,7 +25,7 @@ const SighInForm = (props) => {
   const inputChangeHandler = useCallback(
     (inputId, inputValue) => {
       const result = validateInput(inputId, inputValue);
-      dispatchFormState({ inputId, validationResult: result });
+      dispatchFormState({ inputId, validationResult: result, inputValue });
     },
     [dispatchFormState]
   );

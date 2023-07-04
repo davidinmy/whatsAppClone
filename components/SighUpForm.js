@@ -6,8 +6,15 @@ import { validateInput } from "../utils/actions/formActions";
 import SubmitButton from "../components/SubmitButton";
 import Input from "../components/Input";
 import { reducer } from "../utils/reducers/formReducer";
+import { signUp } from "../utils/actions/authActions";
 
 const initialState = {
+  inputValues: {
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  },
   inputValidities: {
     firstName: false,
     lastName: false,
@@ -23,10 +30,19 @@ const SighUpForm = (props) => {
   const inputChangeHandler = useCallback(
     (inputId, inputValue) => {
       const result = validateInput(inputId, inputValue);
-      dispatchFormState({ inputId, validationResult: result });
+      dispatchFormState({ inputId, validationResult: result, inputValue });
     },
     [dispatchFormState]
   );
+
+  const authHandler = () => {
+    signUp(
+      formState.inputValues.firstName,
+      formState.inputValues.lastName,
+      formState.inputValues.email,
+      formState.inputValues.password
+    );
+  };
 
   return (
     <Fragment>
@@ -71,7 +87,7 @@ const SighUpForm = (props) => {
 
       <SubmitButton
         title="Sign up"
-        onPress={() => console.log("button pressed")}
+        onPress={authHandler}
         style={{ marginTop: 20 }}
         disabled={!formState.formIsValid}
       />
