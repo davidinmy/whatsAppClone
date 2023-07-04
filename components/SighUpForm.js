@@ -37,6 +37,7 @@ const SighUpForm = (props) => {
         autoCapitalize="none"
         iconPack={FontAwesome}
         onInputChanged={inputChangeHandler}
+        errorText={formState.inputValidities["firstName"]}
       />
       <Input
         id="lastName"
@@ -45,6 +46,7 @@ const SighUpForm = (props) => {
         autoCapitalize="none"
         iconPack={FontAwesome}
         onInputChanged={inputChangeHandler}
+        errorText={formState.inputValidities["lastName"]}
       />
       <Input
         id="email"
@@ -54,6 +56,7 @@ const SighUpForm = (props) => {
         keyboardType="email-address"
         iconPack={Feather}
         onInputChanged={inputChangeHandler}
+        errorText={formState.inputValidities["email"]}
       />
       <Input
         id="password"
@@ -63,6 +66,7 @@ const SighUpForm = (props) => {
         secureTextEntry
         iconPack={Feather}
         onInputChanged={inputChangeHandler}
+        errorText={formState.inputValidities["password"]}
       />
 
       <SubmitButton
