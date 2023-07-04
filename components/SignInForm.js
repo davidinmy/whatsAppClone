@@ -1,15 +1,30 @@
-import React, { Fragment } from "react";
+import React, { useReducer, useCallback } from "react";
 import { FontAwesome } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
-import { validateInput } from "../utils/actions/formActions";
 
+import { validateInput } from "../utils/actions/formActions";
 import SubmitButton from "../components/SubmitButton";
 import Input from "../components/Input";
+import { reducer } from "../utils/reducers/formReducer";
+
+const initialState = {
+  inputValidities: {
+    email: false,
+    password: false,
+  },
+  formIsValid: false, // To check if the whole form is valid
+};
 
 const SighInForm = (props) => {
-  const inputChangeHandler = (inputId, inputValue) => {
-    console.log(validateInput(inputId, inputValue));
-  };
+  const [formState, dispatchFormState] = useReducer(reducer, initialState);
+
+  const inputChangeHandler = useCallback(
+    (inputId, inputValue) => {
+      const result = validateInput(inputId, inputValue);
+      dispatchFormState({ inputId, validationResult: result });
+    },
+    [dispatchFormState]
+  );
 
   return (
     <>
@@ -36,6 +51,7 @@ const SighInForm = (props) => {
         title="Sign in"
         onPress={() => console.log("button pressed")}
         style={{ marginTop: 20 }}
+        disabled={!formState.formIsValid}
       />
     </>
   );

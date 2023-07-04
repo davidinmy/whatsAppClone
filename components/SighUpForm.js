@@ -1,15 +1,32 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useCallback, useReducer } from "react";
 import { FontAwesome } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { validateInput } from "../utils/actions/formActions";
 
 import SubmitButton from "../components/SubmitButton";
 import Input from "../components/Input";
+import { reducer } from "../utils/reducers/formReducer";
+
+const initialState = {
+  inputValidities: {
+    firstName: false,
+    lastName: false,
+    email: false,
+    password: false,
+  },
+  formIsValid: false, // To check if the whole form is valid
+};
 
 const SighUpForm = (props) => {
-  const inputChangeHandler = (inputId, inputValue) => {
-    console.log(validateInput(inputId, inputValue));
-  };
+  const [formState, dispatchFormState] = useReducer(reducer, initialState);
+
+  const inputChangeHandler = useCallback(
+    (inputId, inputValue) => {
+      const result = validateInput(inputId, inputValue);
+      dispatchFormState({ inputId, validationResult: result });
+    },
+    [dispatchFormState]
+  );
 
   return (
     <Fragment>
@@ -52,6 +69,7 @@ const SighUpForm = (props) => {
         title="Sign up"
         onPress={() => console.log("button pressed")}
         style={{ marginTop: 20 }}
+        disabled={!formState.formIsValid}
       />
     </Fragment>
   );
