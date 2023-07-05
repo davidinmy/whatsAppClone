@@ -5,10 +5,12 @@ import * as SplashScreen from "expo-splash-screen";
 import { useCallback, useEffect, useState } from "react";
 import { Provider } from "react-redux";
 import * as Font from "expo-font";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import AppNavigator from "./navigation/AppNavigator";
 import { store } from "./store/store";
 
+AsyncStorage.clear();
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
