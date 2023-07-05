@@ -1,8 +1,13 @@
 import { getFireBaseApp } from "../firebaseHelper";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { getDatabase, ref, child, set } from "firebase/database";
 import { authenticate } from "../../store/authSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getUserData } from "./userActions";
 
 export const signUp = (firstName, lastName, email, password) => {
   return async (dispatch) => {
@@ -34,6 +39,39 @@ export const signUp = (firstName, lastName, email, password) => {
 
       if (errorCode === "auth/email-already-in-use") {
         message = "This email is already in use";
+      }
+
+      throw new Error(message);
+    }
+  };
+};
+
+export const signIn = (email, password) => {
+  return async (dispatch) => {
+    const app = getFireBaseApp();
+    const auth = getAuth(app);
+
+    try {
+      const result = await signInWithEmailAndPassword(auth, email, password);
+      const { uid, stsTokenManager } = result.user;
+      const { accessToken, expirationTime } = stsTokenManager;
+
+      const expiryDate = new Date(expirationTime);
+
+      const userData = await getUserData(uid);
+
+      dispatch(authenticate({ token: accessToken, userData }));
+
+      // save the data in async storage
+      saveDataToStorage(accessToken, uid, expiryDate);
+    } catch (error) {
+      console.log(error);
+      const errorCode = error.code;
+
+      let message = "something went wrong";
+
+      if (errorCode === "auth/email-already-in-use") {
+        message = "Sign in fail";
       }
 
       throw new Error(message);

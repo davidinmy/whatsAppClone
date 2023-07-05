@@ -53,7 +53,7 @@ const SighUpForm = (props) => {
     }
   }, [error]);
 
-  const authHandler = async () => {
+  const authHandler = useCallback(async () => {
     try {
       setIsLoading(true);
       const action = signUp(
@@ -68,7 +68,7 @@ const SighUpForm = (props) => {
       setError(error.message);
       setIsLoading(false);
     }
-  };
+  }, [dispatch, formState]);
 
   return (
     <Fragment>
