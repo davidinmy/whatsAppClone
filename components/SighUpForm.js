@@ -8,7 +8,7 @@ import React, {
 import { FontAwesome } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { validateInput } from "../utils/actions/formActions";
-
+import { useDispatch } from "react-redux";
 import SubmitButton from "../components/SubmitButton";
 import Input from "../components/Input";
 import { reducer } from "../utils/reducers/formReducer";
@@ -33,6 +33,7 @@ const initialState = {
 };
 
 const SighUpForm = (props) => {
+  const dispatch = useDispatch();
   const [error, setError] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [formState, dispatchFormState] = useReducer(reducer, initialState);
@@ -54,12 +55,13 @@ const SighUpForm = (props) => {
   const authHandler = async () => {
     try {
       setIsLoading(true);
-      await signUp(
+      const action = signUp(
         formState.inputValues.firstName,
         formState.inputValues.lastName,
         formState.inputValues.email,
         formState.inputValues.password
       );
+      dispatch(action);
       setError(null);
     } catch (error) {
       setError(error.message);
