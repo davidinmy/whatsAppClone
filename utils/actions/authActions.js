@@ -65,13 +65,15 @@ export const signIn = (email, password) => {
       // save the data in async storage
       saveDataToStorage(accessToken, uid, expiryDate);
     } catch (error) {
-      console.log(error);
       const errorCode = error.code;
 
       let message = "something went wrong";
 
-      if (errorCode === "auth/email-already-in-use") {
-        message = "Sign in fail";
+      if (
+        errorCode === "auth/wrong-password" ||
+        errorCode === "auth/user-not-found"
+      ) {
+        message = "The username or password was incorrect";
       }
 
       throw new Error(message);
