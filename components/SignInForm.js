@@ -1,6 +1,6 @@
 import React, { useReducer, useCallback, useEffect, useState } from "react";
 import { Feather } from "@expo/vector-icons";
-import { Alert } from "react-native";
+import { ActivityIndicator, Alert } from "react-native";
 import { useDispatch } from "react-redux";
 
 import { validateInput } from "../utils/actions/formActions";
@@ -8,6 +8,7 @@ import SubmitButton from "../components/SubmitButton";
 import Input from "../components/Input";
 import { reducer } from "../utils/reducers/formReducer";
 import { signIn } from "../utils/actions/authActions";
+import colors from "../constants/colors";
 
 const initialState = {
   inputValues: {
@@ -80,12 +81,20 @@ const SighInForm = (props) => {
         errorText={formState.inputValidities["password"]}
       />
 
-      <SubmitButton
-        title="Sign in"
-        onPress={authHandler}
-        style={{ marginTop: 20 }}
-        disabled={!formState.formIsValid}
-      />
+      {isLoading ? (
+        <ActivityIndicator
+          size={"small"}
+          color={colors.primary}
+          style={{ marginTop: 10 }}
+        />
+      ) : (
+        <SubmitButton
+          title="Sign in"
+          onPress={authHandler}
+          style={{ marginTop: 20 }}
+          disabled={!formState.formIsValid}
+        />
+      )}
     </>
   );
 };
