@@ -10,16 +10,18 @@ import { reducer } from "../utils/reducers/formReducer";
 import { signIn } from "../utils/actions/authActions";
 import colors from "../constants/colors";
 
+const isTestMode = true;
+
 const initialState = {
   inputValues: {
-    email: "",
-    password: "",
+    email: isTestMode ? "abc@te.com" : "",
+    password: isTestMode ? "123123" : "",
   },
   inputValidities: {
-    email: false,
-    password: false,
+    email: isTestMode,
+    password: isTestMode,
   },
-  formIsValid: false, // To check if the whole form is valid
+  formIsValid: isTestMode, // To check if the whole form is valid
 };
 
 const SighInForm = (props) => {
@@ -68,6 +70,7 @@ const SighInForm = (props) => {
         keyboardType="email-address"
         iconPack={Feather}
         onInputChanged={inputChangeHandler}
+        value={formState.inputValues.email}
         errorText={formState.inputValidities["email"]}
       />
       <Input
@@ -78,6 +81,7 @@ const SighInForm = (props) => {
         secureTextEntry
         iconPack={Feather}
         onInputChanged={inputChangeHandler}
+        value={formState.inputValues.password}
         errorText={formState.inputValidities["password"]}
       />
 
