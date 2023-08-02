@@ -1,12 +1,13 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import PageContainer from "../components/PageContainer";
 import PageTitle from "../components/PageTitle";
 
 const SettingsScreen = (props) => {
   return (
-    <View style={styles.container}>
+    <PageContainer>
       <PageTitle text="Settings" />
-    </View>
+    </PageContainer>
   );
 };
 
