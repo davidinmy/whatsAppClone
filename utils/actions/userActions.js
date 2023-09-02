@@ -9,6 +9,7 @@ export const getUserData = async (userId) => {
 
     const snapshot = await get(userRef);
     console.log(snapshot);
+    return snapshot.val();
   } catch (error) {
     console.log(error);
   }

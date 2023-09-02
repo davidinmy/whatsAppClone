@@ -1,5 +1,6 @@
 import React, { useCallback, useReducer } from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { useSelector } from "react-redux";
 import Input from "../components/Input";
 import PageContainer from "../components/PageContainer";
 import PageTitle from "../components/PageTitle";
@@ -25,6 +26,8 @@ const initialState = {
 };
 
 const SettingsScreen = (props) => {
+  const userData = useSelector((state) => state.auth.userData);
+
   const [formState, dispatchFormState] = useReducer(reducer, initialState);
 
   const inputChangeHandler = useCallback(
@@ -47,6 +50,7 @@ const SettingsScreen = (props) => {
         iconPack={FontAwesome}
         onInputChanged={inputChangeHandler}
         errorText={formState.inputValidities["firstName"]}
+        initialValue={userData.firstName}
       />
       <Input
         id="lastName"
@@ -56,6 +60,7 @@ const SettingsScreen = (props) => {
         iconPack={FontAwesome}
         onInputChanged={inputChangeHandler}
         errorText={formState.inputValidities["lastName"]}
+        initialValue={userData.lastName}
       />
       <Input
         id="email"
@@ -66,6 +71,7 @@ const SettingsScreen = (props) => {
         iconPack={Feather}
         onInputChanged={inputChangeHandler}
         errorText={formState.inputValidities["email"]}
+        initialValue={userData.email}
       />
       <Input
         id="about"
@@ -75,6 +81,7 @@ const SettingsScreen = (props) => {
         iconPack={FontAwesome}
         onInputChanged={inputChangeHandler}
         errorText={formState.inputValidities["about"]}
+        initialValue={userData.about}
       />
     </PageContainer>
   );

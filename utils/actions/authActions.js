@@ -69,7 +69,7 @@ export const signIn = (email, password) => {
 
       const userData = await getUserData(uid);
 
-      dispatch(authenticate({ token: accessToken, userData }));
+      dispatch(authenticate({ token: accessToken, userData: userData }));
 
       // save the data in async storage
       saveDataToStorage(accessToken, uid, expiryDate);
