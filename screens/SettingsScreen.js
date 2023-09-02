@@ -10,6 +10,7 @@ import { reducer } from "../utils/reducers/formReducer";
 import { FontAwesome, Feather } from "@expo/vector-icons";
 import SubmitButton from "../components/SubmitButton";
 import colors from "../constants/colors";
+import { updateSignedInUserData } from "../utils/actions/authActions";
 
 const SettingsScreen = (props) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -41,7 +42,17 @@ const SettingsScreen = (props) => {
     [dispatchFormState]
   );
 
-  const saveHandler = () => {};
+  const saveHandler = async () => {
+    const updatedValues = formState.inputValues;
+    try {
+      setIsLoading(true);
+      await updateSignedInUserData(userData.userId, updatedValues);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <PageContainer>

@@ -70,7 +70,7 @@ const SighInForm = (props) => {
         keyboardType="email-address"
         iconPack={Feather}
         onInputChanged={inputChangeHandler}
-        value={formState.inputValues.email}
+        initialValue={formState.inputValues.email}
         errorText={formState.inputValidities["email"]}
       />
       <Input
@@ -81,7 +81,7 @@ const SighInForm = (props) => {
         secureTextEntry
         iconPack={Feather}
         onInputChanged={inputChangeHandler}
-        value={formState.inputValues.password}
+        initialValue={formState.inputValues.password}
         errorText={formState.inputValidities["password"]}
       />
 
